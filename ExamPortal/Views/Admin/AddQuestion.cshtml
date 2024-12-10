@@ -1,0 +1,62 @@
+﻿@model ExamPortal.ViewModels.AddQuestionViewModel
+
+@{
+    ViewData["Title"] = "Yeni Soru Ekle";
+}
+
+<h1>Yeni Soru Ekle</h1>
+
+@if (!string.IsNullOrEmpty(ViewBag.ErrorMessage))
+{
+    <div class="alert alert-danger">
+        @Html.Raw(ViewBag.ErrorMessage.Replace("\n", "<br/>"))
+    </div>
+}
+
+<form asp-action="AddQuestion" method="post">
+    @Html.AntiForgeryToken()
+
+    <input type="hidden" asp-for="ExamId" />
+
+    <div class="form-group">
+        <label asp-for="Text" class="control-label"></label>
+        <textarea asp-for="Text" class="form-control" required></textarea>
+        <span asp-validation-for="Text" class="text-danger"></span>
+    </div>
+
+    <h4>Cevaplar</h4>
+
+    @for (int i = 0; i < 4; i++)
+    {
+        <div class="form-group">
+            <label>Cevap @(i + 1)</label>
+            <input type="text" asp-for="Answers[@i]" class="form-control" required />
+            <span asp-validation-for="Answers[@i]" class="text-danger"></span>
+        </div>
+    }
+
+    <div class="form-group">
+        <label asp-for="CorrectAnswerIndex" class="control-label">Doğru Cevap</label>
+        <select asp-for="CorrectAnswerIndex" class="form-control" required>
+            <option value="">Seçiniz</option>
+            <option value="0">Cevap 1</option>
+            <option value="1">Cevap 2</option>
+            <option value="2">Cevap 3</option>
+            <option value="3">Cevap 4</option>
+        </select>
+        <span asp-validation-for="CorrectAnswerIndex" class="text-danger"></span>
+    </div>
+
+    <br />
+
+    <div class="form-group">
+        <input type="submit" value="Ekle" class="btn btn-success" />
+        <a asp-action="Index" class="btn btn-secondary">İptal</a>
+    </div>
+</form>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

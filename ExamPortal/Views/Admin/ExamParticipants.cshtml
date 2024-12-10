@@ -1,0 +1,29 @@
+﻿@model List<ExamPortal.ViewModels.ExamParticipantViewModel>
+
+@{
+    ViewData["Title"] = "Katılımcılar";
+}
+
+<h1>@ViewBag.ExamTitle Sınav Katılımcıları</h1>
+
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>Öğrenci Adı</th>
+            <th>Doğru Cevaplar</th>
+            <th>Yanlış Cevaplar</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var participant in Model)
+        {
+            <tr>
+                <td>@participant.StudentName</td>
+                <td>@participant.CorrectAnswers</td>
+                <td>@participant.IncorrectAnswers</td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<a asp-action="Index" class="btn btn-secondary">Geri Dön</a>

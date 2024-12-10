@@ -1,0 +1,38 @@
+﻿@model IEnumerable<ExamPortal.Models.Exam>
+
+@{
+    ViewData["Title"] = "Sınavlar";
+}
+
+<h1>Sınavlar</h1>
+
+<p>
+    <a asp-action="Create" class="btn btn-primary">Yeni Sınav Oluştur</a>
+</p>
+
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>Başlık</th>
+            <th>Açıklama</th>
+            <th>Soru Sayısı</th>
+            <th>İşlemler</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var exam in Model)
+        {
+            <tr>
+                <td>@exam.Title</td>
+                <td>@exam.Description</td>
+                <td>@(exam.Questions != null ? exam.Questions.Count : 0)</td>
+                <td>
+                    <a asp-action="Edit" asp-route-id="@exam.Id" class="btn btn-warning btn-sm">Düzenle</a>
+                    <a asp-action="Delete" asp-route-id="@exam.Id" class="btn btn-danger btn-sm">Sil</a>
+                    <a asp-action="AddQuestion" asp-route-examId="@exam.Id" class="btn btn-success btn-sm">Soru Ekle</a>
+                    <a asp-action="ExamParticipants" asp-route-examId="@exam.Id" class="btn btn-info btn-sm">Katılımcılar</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

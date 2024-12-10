@@ -1,0 +1,14 @@
+﻿@model ExamPortal.ViewModels.ExamResultViewModel
+
+@{
+    ViewData["Title"] = "Sınav Sonucu";
+}
+
+<h1>@Model.ExamTitle Sınav Sonucu</h1>
+
+<div class="alert alert-info">
+    <strong>Doğru Cevaplar:</strong> @Model.CorrectAnswers <br />
+    <strong>Yanlış Cevaplar:</strong> @Model.IncorrectAnswers
+</div>
+
+<a asp-action="Exams" class="btn btn-primary">Geri Dön</a>
